@@ -1,7 +1,10 @@
-import { Component, Signal, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product } from 'src/app/models/product.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import { orderProduct } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-comp-c',
@@ -31,8 +34,7 @@ export class CompCComponent {
   // product: Signal<Product> = computed( () => ({ name: this.productName(), price: this.price(), priceWithTaxes: this.priceWithTaxes(), takeAway: false }) );
   product = signal<Product>({ name: this.productName(), price: this.price(), priceWithTaxes: this.priceWithTaxes() });
 
-
-  constructor() {
+  constructor(private store: Store<AppState>) {
     effect( () => this.priceWithTaxesLog().push(this.priceWithTaxes()) );
   }
 
@@ -54,6 +56,13 @@ export class CompCComponent {
       value.price = this.price();
       value.priceWithTaxes = this.priceWithTaxes();
     });
+    this.store.dispatch(
+      orderProduct(
+        {
+          product: { ...this.product() }
+        }
+      )
+    );
   }
 
 }
