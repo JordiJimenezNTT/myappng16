@@ -1,0 +1,35 @@
+<div id="container">
+
+  <p>comp-c works!</p>
+
+  <hr>
+
+    <p>Product name: {{ productName() }}</p>
+    <button (click)="productName.set('Espaguetis')">Espaguetis</button>
+    <button (click)="productName.set('Raviolis')">Raviolis</button>
+    <input type="text" [ngModel]="productName()" (input)="onInputTextChange($event)"/>
+
+  <hr>
+
+    <p>Price: {{ price() }} €</p>
+    <button (click)="add(1)">Suma 1€</button>
+    <button (click)="add(5)">Suma 5€</button>
+    <button (click)="add(10)">Suma 10€</button>
+
+  <hr>
+
+    <p>Price with taxes: {{ priceWithTaxes() }}</p>
+
+  <hr>
+
+    <p>Price log: {{ priceWithTaxesLog() | json }}</p>
+
+  <hr>
+
+    <p>Product: {{ product() | json }}</p>
+
+  <hr>
+
+  <button (click)="orderProduct()">Order product</button>
+
+</div>
